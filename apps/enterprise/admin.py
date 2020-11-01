@@ -6,8 +6,8 @@ from .models import *
 # Register your models here.
 @admin.register(Jobs)
 class JobsAdmin(admin.ModelAdmin):
-    list_display = ['company', 'position_name', 'salary', 'detail_short']
-    search_fields = ['company', 'position_name']
+    list_display = ['company_name', 'title', 'salary', 'education', 'work_area', 'company_type', 'company_size', 'detail_short']
+    search_fields = ['company_name', 'title', 'detail']
 
     # 自定义按钮(动作/操作)
     actions = ['analysis']
@@ -36,8 +36,8 @@ class JobsAdmin(admin.ModelAdmin):
         qs = super(JobsAdmin, self).get_queryset(request)
         user = request.user
         if user.user_type == 'enterprise':
-            qs = qs.filter(company=user.username)
-            self.search_fields = ['position_name']
+            qs = qs.filter(company_name=user.username)
+            self.search_fields = ['title']
         return qs
 
     def get_form(self, request, obj=None, change=False, **kwargs):
@@ -46,7 +46,7 @@ class JobsAdmin(admin.ModelAdmin):
         # 非管理员用户隐藏部分字段
         if not request.user.is_superuser:
             # 在表单中去除company字段
-            self.exclude = ('company',)
+            self.exclude = ('company_name',)
         return super(JobsAdmin, self).get_form(request, obj, change, **kwargs)
 
     def save_model(self, request, obj, form, change):
@@ -54,7 +54,7 @@ class JobsAdmin(admin.ModelAdmin):
 
         # 非管理员用户只能为自己添加岗位信息
         if not request.user.is_superuser:
-            obj.company = request.user.username
+            obj.company_name = request.user.username
         super(JobsAdmin, self).save_model(request, obj, form, change)
 
 
