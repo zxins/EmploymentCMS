@@ -28,6 +28,7 @@ SECRET_KEY = 'e%83kti4+2+djm63c)m!1si7hl#6pek$y%#+cj(y5h%bh3oa-8'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = "users.UserProfile"
 
 # simpleui 默认主题
 SIMPLEUI_DEFAULT_THEME = 'admin.lte.css'
@@ -39,15 +40,16 @@ SIMPLEUI_LOGO = 'https://avatars2.githubusercontent.com/u/13655483?s=60&v=4'
 # Application definition
 
 INSTALLED_APPS = [
-    'student.apps.StudentConfig',
-    'jobs.apps.JobsConfig',
     'simpleui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    'users.apps.UsersConfig',
+    'school.apps.StudentConfig',
+    'enterprise.apps.JobsConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +83,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'EmploymentCMS.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -91,7 +92,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -111,7 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -123,8 +122,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
-
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
