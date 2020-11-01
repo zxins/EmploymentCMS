@@ -7,6 +7,7 @@ from .models import *
 @admin.register(Jobs)
 class JobsAdmin(admin.ModelAdmin):
     list_display = ['company', 'position_name', 'salary', 'detail_short']
+    search_fields = ['company', 'position_name']
 
     # 自定义按钮(动作/操作)
     actions = ['analysis']
@@ -36,6 +37,7 @@ class JobsAdmin(admin.ModelAdmin):
         user = request.user
         if user.user_type == 'enterprise':
             qs = qs.filter(company=user.username)
+            self.search_fields = ['position_name']
         return qs
 
     def get_form(self, request, obj=None, change=False, **kwargs):
