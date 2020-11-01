@@ -6,19 +6,38 @@ from .models import *
 # Register your models here.
 @admin.register(Jobs)
 class JobsAdmin(admin.ModelAdmin):
-    list_display = ['company_name', 'title', 'salary', 'education', 'work_area', 'company_type', 'company_size', 'detail_short']
+    list_display = ['company_name', 'title', 'salary', 'education', 'work_area', 'company_type', 'company_size',
+                    'detail_short']
     search_fields = ['company_name', 'title', 'detail']
 
     # 自定义按钮(动作/操作)
-    actions = ['analysis']
+    actions = ['edu', 'area', 'sal']
 
-    def analysis(self, request, queryset):
-        """ 岗位分析 """
+    def edu(self, request, queryset):
+        """ 学历分分布 """
         pass
 
-    analysis.short_description = '岗位分析'
-    analysis.action_type = 0
-    analysis.action_url = 'http://www.baidu.com'
+    edu.short_description = '学历分布'
+    edu.action_type = 0
+    edu.action_url = '/edu_als/'
+
+    # analysis.action_url = 'https://jobs.51job.com/beijing/125472717.html?s=01&t=0'
+
+    def area(self, request, queryset):
+        """ 学历分分布 """
+        pass
+
+    area.short_description = '区域分析'
+    area.action_type = 0
+    area.action_url = '/area_als/'
+
+    def sal(self, request, queryset):
+        """ 学历分分布 """
+        pass
+
+    sal.short_description = '薪资情况'
+    sal.action_type = 0
+    sal.action_url = '/salary_als/'
 
     def get_actions(self, request):
         """ 返回一个字典, 内容为这个ModelAdmin的所有'动作'的名称映射 """
@@ -26,7 +45,7 @@ class JobsAdmin(admin.ModelAdmin):
         # 对企业用户隐藏岗位分析按钮
         actions = super(JobsAdmin, self).get_actions(request)
         if request.user.user_type == 'enterprise':
-            actions.pop('analysis')
+            actions = []
         return actions
 
     def get_queryset(self, request):
