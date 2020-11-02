@@ -27,7 +27,7 @@ SECRET_KEY = 'e%83kti4+2+djm63c)m!1si7hl#6pek$y%#+cj(y5h%bh3oa-8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = "users.UserProfile"
 
 # simpleui 默认主题
