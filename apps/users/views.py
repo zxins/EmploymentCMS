@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django import forms
 from django.http import HttpResponse
 from .models import UserProfile
-
+from django.contrib.auth.models import Group
 
 class RegisterForm(forms.Form):
     username = forms.CharField(label="用户名称", max_length=18)
@@ -47,6 +47,13 @@ def register(request):
             user.set_password(data['password'])
             user.save()
 
+            group = {
+                'student': '学生',
+                'teacher': '教师',
+                'enterprise': '企业'
+            }
+            group = Group.objects.get(name=group.get(data['user_type']))
+            group.user_set.add(user)
             return HttpResponse("注册成功")
         else:
             errors = form.errors
