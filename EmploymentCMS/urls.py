@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 
 from enterprise import views
+from users import views as user_views
 
 urlpatterns = [
-    path('', admin.site.urls),
+    path('', admin.site.urls, name="index"),
+    path('register/', user_views.register, name="register"),
     path('edu_als/', views.edu_analysis, name="edu_analysis"),
     path('area_als/', views.area_analysis, name="area_analysis"),
     path('salary_als/', views.salary_analysis, name="salary_analysis"),

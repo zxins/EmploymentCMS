@@ -1,0 +1,105 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/login.css" %}">
+    {{ form.media }}
+    <style type="text/css">
+    .login .form-row #id_password_auth {
+        clear: both;
+        padding: 8px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .login .form-row #id_user_type {
+        clear: both;
+        {#padding: 8px;#}
+        width: 100%;
+        box-sizing: border-box;
+    }
+    </style>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+    {% if form.errors and not form.non_field_errors %}
+        <p class="errornote">
+            {% if form.errors.items|length == 1 %}{% translate "Please correct the error below." %}{% else %}
+                {% translate "Please correct the errors below." %}{% endif %}
+        </p>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="errornote">
+                {{ error }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+    <div id="content-main">
+
+        <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+            <div class="form-row">
+                {{ form.username.errors }}
+                {{ form.username.label_tag }} {{ form.username }}
+            </div>
+            <div class="form-row">
+                {{ form.password.errors }}
+                {{ form.password.label_tag }} {{ form.password }}
+                <input type="hidden" name="next" value="{{ next }}">
+            </div>
+
+            <div class="form-row">
+                {{ form.password_auth.errors }}
+                {{ form.password_auth.label_tag }} <br> {{ form.password_auth }}
+                <input type="hidden" name="next" value="{{ next }}">
+            </div>
+            <br>
+            <div class="form-row">
+                {{ form.user_type.errors }}
+                {{ form.user_type.label_tag }}{{ form.user_type }}
+                <input type="hidden" name="next" value="{{ next }}">
+            </div>
+
+            <div class="form-row">
+                <input type="submit" value="{% translate '提交' %}">
+            </div>
+
+        </form>
+    </div>
+
+<!--
+    Close login page particles see link:
+    关闭登录页粒子动画请查看：
+    https://github.com/newpanjing/simpleui/blob/master/QUICK.md#关闭登录页粒子动画
+-->
+<style type="text/css">
+    #particles-js {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        z-index: -1;
+    }
+</style>
+<!-- particles.js container -->
+<div id="particles-js"></div>
+<script type="text/javascript" src="/static/admin/simpleui-x/particles/particles.js"></script>
+<script type="text/javascript" src="/static/admin/simpleui-x/particles/app.js"></script>
+
+
+{% endblock %}
