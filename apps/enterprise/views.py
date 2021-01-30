@@ -32,8 +32,6 @@ def area_analysis(request):
     xaxis, yaxis = [], []
     for row in result:
         area = row['work_area']
-        if area == '北京':
-            area = '未分区'
         xaxis.append(area)
         yaxis.append(row['count'])
 

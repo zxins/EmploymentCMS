@@ -6,8 +6,9 @@ from .models import *
 # Register your models here.
 @admin.register(Jobs)
 class JobsAdmin(admin.ModelAdmin):
-    list_display = ['company_name', 'title', 'salary', 'education', 'work_area', 'company_type', 'detail_short']
+    list_display = ['id', 'company_name', 'title', 'salary', 'education', 'work_area',  'detail_short']
     search_fields = ['company_name', 'title', 'detail']
+    ordering = ('id',)
 
     # 自定义按钮(动作/操作)
     actions = ['edu', 'area', 'sal']
@@ -26,7 +27,7 @@ class JobsAdmin(admin.ModelAdmin):
         """ 学历分分布 """
         pass
 
-    area.short_description = '区域分析'
+    area.short_description = '工作区域'
     area.action_type = 1
     area.action_url = '/area_als/'
 

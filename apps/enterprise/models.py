@@ -46,8 +46,8 @@ class Jobs(models.Model):
                                    help_text="单位：K")
     work_area = models.CharField(max_length=50, default='北京', verbose_name="工作地点")
     detail = models.TextField(default='', verbose_name="职位详情")
-    company_type = models.CharField(max_length=10, default='民营公司', verbose_name="企业类型")
-    company_size = models.CharField(max_length=20, default='', verbose_name="企业大小")
+    # company_type = models.CharField(max_length=10, default='民营公司', verbose_name="企业类型")
+    company_size = models.CharField(max_length=20, default='', verbose_name="公司人数")
 
     class Meta:
         verbose_name = "岗位信息"
